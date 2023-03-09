@@ -98,7 +98,7 @@
             //Execute the payment
             onAuthorize: function (data, actions) {
                 return actions.payment.execute().then(function () {
-                    var url = '@Url.Action("OrderCompleted", "Orders", new { })';
+                    var url = '@Url.Action("CompleteOrder", "Orders", new { })';
                     window.location.href = url;
                 });
             }
