@@ -1,0 +1,78 @@
+﻿@model ComicBook
+
+@{
+    ViewData["Title"] = "Детали за стрип";
+}
+
+<div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="card mb-12">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @Model.Title
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="@Model.Image" width="100%" alt="@Model.Title">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text"><b>Краток опис: </b>@Model.ShortDescription</p>
+                            <p class="card-text"><b>Писател: </b>
+                                <a asp-controller="Writers" asp-action="Details" asp-route-id ="@Model.WriterId">
+                                    @Model.Writer.Name
+                                </a>
+                            </p>
+                            <p class="card-text"><b>Илустрација: </b>
+                                <a asp-controller="Pencilers" asp-action="Details" asp-route-id="@Model.PencilerId">
+                                    @Model.Penciler.Name
+                                </a>
+                            </p>
+                            <p class="card-text"><b>Сликар на корица: </b>
+                                <a asp-controller="CoverArtists" asp-action="Details" asp-route-id="@Model.CoverArtistId">
+                                    @Model.CoverArtist.Name
+                                </a>
+                            </p>
+                            <p class="card-text"><b>Јазик: </b>@Model.Language</p>
+                            <p class="card-text"><b>Објавена: </b>@Model.Published</p>
+                            <p class="card-text">
+                                <b>Категорија: </b>@Model.SellingCategory
+                            </p>
+                            <p class="card-text">
+                                <b>Главни карактери: </b>
+                                <hr />
+                                <div class="row">
+                                    @foreach(var mCharacter in Model.Characters_ComicBooks)
+                                     {
+                                        <div class="column text-center">
+                                            <img class="border-info rounded-circle" src="@mCharacter.MainCharacter.Picture" style="max-width: 150px"/>
+                                            <br />
+                                            <a asp-controller="MCharacters" asp-action="Details" asp-route-id="@mCharacter.CharacterId">@mCharacter.MainCharacter.Name</a>
+                                        </div>
+                                     }
+                                </div>
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-action="Index">
+                                    Назад кон листа
+                                </a>
+                                <a class="btn btn-success text-white">
+                                    <i class="bi bi-cart-plus" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id ="@Model.Id"></i> Додај во кошничка (Цена: @Model.Price денари)
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
